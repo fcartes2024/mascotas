@@ -19,7 +19,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${geist.variable} ${dmSerif.variable}`}>
+    <html lang="es" className={`${geist.variable} ${dmSerif.variable}`} data-scroll-behavior="smooth">
       <body className="antialiased">
         <AuthProvider>
           {children}

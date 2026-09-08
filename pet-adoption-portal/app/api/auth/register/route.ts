@@ -49,7 +49,8 @@ export async function POST(req: Request) {
     const insert = db.prepare(
       'INSERT INTO users (name, email, password_hash, role, foundation_id) VALUES (?, ?, ?, ?, ?)',
     )
-    insert.run(name.trim(), lowerEmail, hash(password), role, foundationId)
+    const insertResult = insert.run(name.trim(), lowerEmail, hash(password), role, foundationId)
+    const userId = Number(insertResult.lastInsertRowid)
 
     let returnedFoundationName: string | undefined
     if (foundationId && foundationName) {
@@ -59,6 +60,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       ok: true,
       user: {
+        id: userId,
         name: name.trim(),
         email: lowerEmail,
         role,

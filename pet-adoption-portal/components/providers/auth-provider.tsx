@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 export type UserRole = 'admin' | 'fundacion' | 'usuario'
 
 export type User = {
+  id?: number
   name: string
   email: string
   role: UserRole
@@ -49,6 +50,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const parsed = JSON.parse(raw) as Partial<User>
         if (parsed.name && parsed.email) {
           const u: User = {
+            id: parsed.id,
             name: parsed.name,
             email: parsed.email,
             role: safeRole(parsed.role),
@@ -86,6 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       if (data.user) {
         setUser({
+          id: data.user.id,
           name: data.user.name,
           email: data.user.email,
           role: safeRole(data.user.role),
@@ -119,6 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       if (data.user) {
         setUser({
+          id: data.user.id,
           name: data.user.name,
           email: data.user.email,
           role: safeRole(data.user.role),
